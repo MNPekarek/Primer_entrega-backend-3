@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-proyecto-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mi-proyecto-api
+  template:
+    metadata:
+      labels:
+        app: mi-proyecto-api
+    spec:
+      containers:
+        - name: mi-proyecto-api
+          image: mi-proyecto-api
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URL
+              value: "mongodb+srv://coder:coderpass@ecommerce-cluster.3w20xtd.mongodb.net/myEcommerce?retryWrites=true&w=majority&appName=ecommerce-cluster"
