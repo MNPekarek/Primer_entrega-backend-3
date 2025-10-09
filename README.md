@@ -9,8 +9,12 @@ Este proyecto es una API desarrollada con Express y MongoDB para generar y consu
 Podés descargar la imagen directamente desde Docker Hub:
 
 ```bash
-docker pull matiastech/mocking-api:v1 o docker pull matiastech/mocking-api:latest
+docker pull matiastech/mocking-api:v1
+```
+o
 
+```bash
+docker pull matiastech/mocking-api:latest
 ```
 
 También podes ingresar a:
