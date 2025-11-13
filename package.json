@@ -4,8 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js"
+    "test": "mocha",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,14 @@
     "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "mongoose": "^8.19.1"
+    "mongoose": "^8.19.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "chai": "^6.2.1",
+    "chai-http": "^5.1.2",
+    "mocha": "^11.7.5",
+    "supertest": "^7.1.4"
   }
 }

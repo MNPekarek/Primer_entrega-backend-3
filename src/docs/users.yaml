@@ -1,0 +1,58 @@
+openapi: 3.0.1
+info:
+  title: Users API
+  version: 1.0.0
+  description: Documentación del módulo de usuarios del proyecto Backend 3.
+
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Lista de usuarios obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+        "500":
+          description: Error al obtener los usuarios
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "678bc912c2f15798fbba521c"
+        first_name:
+          type: string
+          example: Juan
+        last_name:
+          type: string
+          example: Pérez
+        email:
+          type: string
+          example: juan@example.com
+        age:
+          type: number
+          example: 25
+        role:
+          type: string
+          example: user
+        pets:
+          type: array
+          items:
+            type: string
+            example: "67a84fc1f4b7e8a1c322a91b"

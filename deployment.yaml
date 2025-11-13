@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mi-proyecto-api
-          image: mi-proyecto-api
+          image: matiastech/mocking-api:v3
           imagePullPolicy: Never
           ports:
             - containerPort: 8080

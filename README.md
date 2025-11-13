@@ -1,6 +1,7 @@
 # 🐾 Mocking API - Entrega Backend 3
 
-Este proyecto es una API desarrollada con Express y MongoDB para generar y consultar datos mockeados de usuarios y mascotas. Está preparada para ejecutarse dentro de Minikube con Docker y Kubernetes.
+API desarrollada con Express, MongoDB y Swagger, preparada para ejecutarse dentro de Docker + Kubernetes en Minikube.
+Incluye endpoints mockeados, persistencia en MongoDB, documentación OpenAPI y soporte completo para despliegue local usando Minikube.
 
 ---
 
@@ -9,7 +10,7 @@ Este proyecto es una API desarrollada con Express y MongoDB para generar y consu
 Podés descargar la imagen directamente desde Docker Hub:
 
 ```bash
-docker pull matiastech/mocking-api:v1
+docker pull matiastech/mocking-api:v3
 ```
 o
 
@@ -17,20 +18,46 @@ o
 docker pull matiastech/mocking-api:latest
 ```
 
-También podes ingresar a:
+También podes ingresar al repositorio oficial:
 https://hub.docker.com/r/matiastech/mocking-api
 
-## 🚀 Cómo levantar el proyecto en Minikube
+## Cambios introducidos en la versión v3
 
-### 1. Activar entorno Docker interno
+*Imagen reconstruida dentro del Docker de Minikube.
+*Deployment actualizado mediante:
 
 ```bash
-eval $(minikube docker-env)
+kubectl set image deployment/mi-proyecto-deployment mi-proyecto-api=matiastech/mocking-api:v3
 ```
-### 2. Construir imagen Docker
+
+*Documentación Swagger funcionando en /api/docs
+*Logs limpios y unificados
+*Conexión estable a MongoDB Atlas o local
+
+## Variables de entorno (ENV)
+
+MONGO_URL=mongodb+srv://coder:coderpass@ecommerce-cluster.3w20xtd.mongodb.net/myEcommerce?retryWrites=true&w=majority&appName=ecommerce-clusterappName=Cluster0
+PORT=8080
+
+## Cómo levantar el proyecto en Minikube
+
+### 1. Activar entorno Docker interno de Minikube
 
 ```bash
-docker build --no-cache -t mi-proyecto-api .
+eval $(minikube -p minikube docker-env)
+```
+
+Verificar: 
+
+```bash
+echo $DOCKER_HOST
+docker ps
+``` 
+
+### 2. Construir imagen Docker dentro de Minikube
+
+```bash
+docker build -t matiastech/mocking-api:v3 .
 ```
 ### 3. Aplicar deployment y service
 
@@ -39,24 +66,32 @@ kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 ```
 
-### 4. Verificar que el pod esté corriend
+### 4. Verificar que el pod esté corriendo
 
 ```bash
 kubectl get pods
-kubectl logs $(kubectl get pods --selector=app=mi-proyecto-api --output=jsonpath='{.items[0].metadata.name}')
-
-Deberías ver Servidor escuchando en el puerto 8080 y Conectado a MongoDB.
+kubectl logs -l app=mi-proyecto-api --tail=50
 ```
+
+Deberías ver:
+```bash 
+Servidor escuchando en el puerto 8080
+Conectado a MongoDB.
+```
+
 ### 5. Acceder desde el navegador
 
 ```bash
-minikube service mi-proyecto-service
-
-Esto abrirá el navegador en la URL correcta (ej: http://192.168.49.2:30080).
+minikube service mi-proyecto-service --url
 ```
 
+Esto abrirá el navegador en la URL correcta (ej: http://192.168.49.2:30080).
 
-### Endpoints disponible
+## Swagger - Documentación interactiva
+
+Una vez levantado: http://TU_URL/api/docs
+
+## Endpoints disponible
 
 ```
 🔹 HTML de entrada
@@ -81,5 +116,4 @@ Esto abrirá el navegador en la URL correcta (ej: http://192.168.49.2:30080).
 - Docker
 - Minikube
 - Kubernetes
-
 ```
